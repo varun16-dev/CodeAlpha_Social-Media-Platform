@@ -1,0 +1,271 @@
+/* 🌟 Global Styles */
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  margin: 0;
+  background: linear-gradient(135deg, #89f7fe, #66a6ff);
+  color: #333;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+h1, h2, h3 {
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* 🌟 Navbar */
+nav {
+  background: linear-gradient(90deg, #007aff, #4a90e2);
+  color: white;
+  padding: 14px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+nav h3 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+nav div {
+  display: flex;
+  gap: 10px; /* Space between Feed & Logout */
+}
+
+nav button,
+nav a button {
+  background: white;
+  color: #007aff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+nav button:hover,
+nav a button:hover {
+  transform: scale(1.05);
+  background: #f1f1f1;
+}
+
+/* 🌟 Containers */
+.container {
+  max-width: 650px;
+  margin: 40px auto;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(8px);
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* 🌟 Inputs */
+input, textarea {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+input:focus, textarea:focus {
+  border-color: #007aff;
+  outline: none;
+  box-shadow: 0 0 6px rgba(0, 122, 255, 0.4);
+}
+
+/* 🌟 Buttons */
+button {
+  background: linear-gradient(90deg, #007aff, #4a90e2);
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  transform: scale(1.05);
+  background: linear-gradient(90deg, #005fcb, #357bd8);
+}
+
+/* 🌟 Posts */
+.post, .post-card {
+  background: white;
+  padding: 15px;
+  margin-top: 15px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: 0.3s;
+}
+
+.post:hover, .post-card:hover {
+  transform: translateY(-3px);
+}
+
+.post-header {
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.post-header a {
+  color: #007aff;
+  text-decoration: none;
+}
+
+.post-header a:hover {
+  text-decoration: underline;
+}
+
+/* 🌟 Like Button */
+.like-btn {
+  background: #e4e6eb;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.like-btn:hover {
+  background: #d0d3d9;
+  transform: scale(1.05);
+}
+
+.like-btn.liked {
+  background: #ff3366;
+  color: white;
+  font-weight: bold;
+}
+
+/* 🌟 Comment Section */
+.comment-section {
+  margin-top: 12px;
+  display: flex;
+  gap: 5px;
+}
+
+.comment-section input {
+  flex: 1;
+}
+
+.comment-section button {
+  background: #42b72a;
+}
+
+.comment-section button:hover {
+  background: #2e8d1d;
+}
+
+/* 🌟 Followers List */
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+ul li {
+  padding: 5px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+ul li a {
+  color: #007aff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+ul li a:hover {
+  text-decoration: underline;
+}
+
+/* 🌟 Profile Picture */
+.profile-pic {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #007aff;
+  display: block;
+  margin: 0 auto 10px;
+  transition: transform 0.3s;
+}
+
+.profile-pic:hover {
+  transform: scale(1.05);
+}
+
+/* 🌟 Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+button, input, textarea, .post-card {
+  transition: all 0.3s ease-in-out;
+}
+/* File input box */
+input[type="file"] {
+  padding: 6px;
+  font-size: 13px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background: #f9f9f9;
+  width: 200px; /* 👈 Fixed width */
+}
+
+/* File upload button */
+input[type="file"]::-webkit-file-upload-button {
+  padding: 6px 10px;
+  font-size: 13px;
+  background: #007aff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+input[type="file"]::-webkit-file-upload-button:hover {
+  background: #005fcb;
+}
+
+/* What's on your mind box */
+textarea#content,
+textarea#dash-content {
+  width: 200px; /* 👈 Same fixed width as file input */
+  padding: 4px 6px;
+  font-size: 13px;
+  border-radius: 6px;
+  border: 1px solid #bbb;
+  resize: none;
+  height: 28px; /* 👈 Small height */
+  transition: 0.2s;
+}
+
+textarea#content:focus,
+textarea#dash-content:focus {
+  height: 60px; /* 👈 Expands when typing */
+  border-color: #007aff;
+  box-shadow: 0 0 4px rgba(0, 122, 255, 0.3);
+}
+

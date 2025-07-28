@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: linear-gradient(135deg, #89f7fe, #66a6ff);
+      margin: 0;
+    }
+
+    nav {
+      background: linear-gradient(90deg, #007aff, #4a90e2);
+      color: white;
+      padding: 12px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+
+    nav div {
+      display: flex;
+      gap: 10px; /* Space between Feed & Logout */
+    }
+
+    nav button {
+      background: white;
+      color: #007aff;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    nav button:hover {
+      background: #f1f1f1;
+      transform: scale(1.05);
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 40px auto;
+      background: rgba(255,255,255,0.9);
+      padding: 25px;
+      border-radius: 16px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+      backdrop-filter: blur(8px);
+    }
+
+    h2, h3 {
+      color: #007aff;
+      margin-bottom: 10px;
+    }
+
+    textarea {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      resize: none;
+      font-size: 14px;
+    }
+
+    button {
+      background: linear-gradient(90deg, #007aff, #4a90e2);
+      color: white;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      background: linear-gradient(90deg, #005fcb, #357bd8);
+    }
+
+    .post {
+      background: white;
+      padding: 12px;
+      margin-top: 12px;
+      border-radius: 10px;
+      box-shadow: 0px 3px 8px rgba(0,0,0,0.1);
+      transition: 0.3s;
+    }
+
+    .post:hover {
+      transform: scale(1.02);
+    }
+
+    .post button {
+      background: #ff3366;
+      color: white;
+      margin-top: 8px;
+      border-radius: 8px;
+    }
+
+    .post button:hover {
+      background: #e62e5c;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <h3>Dashboard</h3>
+    <div>
+      <a href="index.html"><button>Feed</button></a>
+      <button onclick="logout()">Logout</button>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h2>Welcome, <span id="dash-username"></span> 👋</h2>
+    <p><strong>Followers:</strong> <span id="dash-followers"></span></p>
+    <p><strong>Following:</strong> <span id="dash-following"></span></p>
+
+    <h3>Create New Post</h3>
+    <textarea id="dash-content" placeholder="What's on your mind?"></textarea>
+    <button onclick="createDashboardPost()">Post</button>
+
+    <h3>Your Posts</h3>
+    <div id="dash-posts"></div>
+  </div>
+
+  <script src="main.js"></script>
+  <script>
+    async function loadDashboard() {
+      const userId = localStorage.getItem("userId");
+      const res = await fetch(`${API_URL}/users/${userId}`);
+      const user = await res.json();
+
+      document.getElementById("dash-username").textContent = user.username;
+      document.getElementById("dash-followers").textContent = user.followers.length;
+      document.getElementById("dash-following").textContent = user.following.length;
+
+      const postsRes = await fetch(`${API_URL}/posts`);
+      const posts = await postsRes.json();
+
+      const myPosts = posts.filter(p => p.user._id === userId);
+      const postContainer = document.getElementById("dash-posts");
+      postContainer.innerHTML = "";
+
+      myPosts.reverse().forEach((p) => {
+        postContainer.innerHTML += `
+          <div class="post">
+            <p>${p.content}</p>
+            <button onclick="likePost('${p._id}')">❤️ Like (${p.likes.length})</button>
+          </div>
+        `;
+      });
+    }
+
+    async function createDashboardPost() {
+      const content = document.getElementById("dash-content").value;
+
+      await fetch(`${API_URL}/posts`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({ content })
+      });
+
+      document.getElementById("dash-content").value = "";
+      loadDashboard();
+    }
+
+    loadDashboard();
+  </script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Feed</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- 🔹 Loading Spinner -->
+  <div id="loading-spinner"></div>
+
+  <nav>
+    <h3>My Social App</h3>
+    <div>
+      <a href="dashboard.html"><button>Dashboard</button></a>
+      <a href="profile.html"><button>My Profile</button></a>
+      <button onclick="logout()">Logout</button>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h2>Create a Post</h2>
+    <div class="post-card">
+      <textarea id="content" placeholder="What's on your mind?" style="width:95%;padding:10px;"></textarea>
+      <input type="file" id="media" accept="image/*,video/*">
+      <button onclick="createPost()" style="margin-top:10px;">Post</button>
+    </div>
+
+    <h2 style="margin-top:25px;">Recent Posts</h2>
+    <div id="posts"></div>
+  </div>
+
+  <!-- 🔹 Floating Create Post Button -->
+  <button id="create-post-btn" onclick="document.querySelector('#content').focus()">+</button>
+
+  <script src="main.js"></script>
+
+  <script>
+    // ✅ Show Loading Spinner while fetching posts
+    async function loadPostsWithSpinner() {
+      document.getElementById("loading-spinner").style.display = "block";
+      await loadPosts();
+      document.getElementById("loading-spinner").style.display = "none";
+    }
+
+    // ✅ Replace normal loadPosts call with spinner version
+    if (window.location.pathname.endsWith("index.html")) {
+      loadPostsWithSpinner();
+    }
+  </script>
+</body>
+</html>
